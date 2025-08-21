@@ -1,322 +1,254 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Nebula • Portofoliu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <meta charset="UTF-8">
+  <title>Alxxxx - Portfolio</title>
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
-    :root{
-      --bg:#0c1320;         /* deep space */
-      --bg-soft:#0f1a2e;    /* cards */
-      --text:#dbe7ff;       /* primary text */
-      --muted:#8aa2c7;      /* secondary */
-      --accent:#21c9ff;     /* cyan */
-      --accent-2:#7a5cff;   /* violet */
-      --ok:#2bd576;         /* green */
-      --ring: 0 0 0 2px rgb(33 201 255 / .15), 0 10px 30px rgb(122 92 255 / .25);
-    }
-    [data-theme="light"]{
-      --bg:#f6f9ff;
-      --bg-soft:#ffffff;
-      --text:#0c1320;
-      --muted:#4e607a;
-      --accent:#0b8bd6;
-      --accent-2:#6a4fff;
-      --ok:#0a9b55;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    /* General Styles */
+    body {
       margin:0;
-      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 80% -10%, rgba(122,92,255,.18), transparent 60%),
-        radial-gradient(900px 500px at -10% 20%, rgba(33,201,255,.18), transparent 60%),
-        var(--bg);
-      scroll-behavior:smooth;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(120deg, #0a0a0a, #1a1a1a);
+      color: #f5f5f5;
+      scroll-behavior: smooth;
+      transition: background 0.5s, color 0.5s;
+    }
+    body.light-mode {
+      background:#fefefe;
+      color:#222;
     }
 
-    /* ============== Header ============== */
-    header{
-      position:sticky; top:0; z-index:50;
-      background: linear-gradient(180deg, rgba(12,19,32,.8), rgba(12,19,32,.35));
-      backdrop-filter:saturate(140%) blur(8px);
-      border-bottom:1px solid rgba(255,255,255,.06);
+    /* Header and Navigation */
+    header {
+      position: fixed;
+      top:0;
+      width:100%;
+      padding:15px;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 10px #0ff;
+      z-index:1000;
     }
-    .nav{max-width:1100px; margin:auto; display:flex; align-items:center; gap:20px; padding:14px 16px}
-    .brand{font-weight:800; letter-spacing:.5px; font-size:1.15rem}
-    .brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .spacer{flex:1}
-    .links a{color:var(--muted); text-decoration:none; margin:0 10px; font-weight:600; position:relative}
-    .links a:hover,.links a.active{color:var(--text)}
-    .links a.active::after{content:""; position:absolute; left:0; right:0; bottom:-8px; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:2px}
-    .actions{display:flex; align-items:center; gap:10px}
-    .btn, button.btn{appearance:none; border:none; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer; color:var(--text); background:linear-gradient(90deg, rgba(33,201,255,.15), rgba(122,92,255,.15)); box-shadow:var(--ring)}
-    .btn:hover{transform:translateY(-1px)}
-    .icon-btn{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:var(--text)}
-    .menu{display:none}
-
-    /* ============== Layout helpers ============== */
-    .container{max-width:1100px; margin:auto; padding:64px 16px}
-    section{scroll-margin-top:90px}
-    .grid{display:grid; gap:28px}
-
-    /* ============== Hero ============== */
-    .hero{min-height:72vh; align-items:center; grid-template-columns: 1.15fr .85fr}
-    .headline{font-size:clamp(28px, 4vw, 44px); line-height:1.1; font-weight:800}
-    .headline .role{display:block; background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
-    .lead{color:var(--muted); max-width:56ch}
-    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
-    .cta .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 14px 34px rgba(33,201,255,.25)}
-    .socials{display:flex; gap:12px; margin-top:18px}
-
-    .portrait{justify-self:end; position:relative}
-    .glow{
-      position:absolute; inset:-12px; border-radius:24px;
-      background: radial-gradient(600px 300px at 20% 10%, rgba(33,201,255,.25), transparent 60%),
-                  radial-gradient(500px 300px at 80% 90%, rgba(122,92,255,.25), transparent 60%);
-      filter:blur(24px); z-index:-1
+    body.light-mode header {
+      background:rgba(255,255,255,0.8);
+      box-shadow:0 0 10px #555;
     }
-    .portrait img{width:min(420px, 88vw); border-radius:24px; display:block; object-fit:cover; aspect-ratio:1/1.2; border:1px solid rgba(255,255,255,.08)}
-
-    /* ============== About ============== */
-    .card{background:var(--bg-soft); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:22px; box-shadow:var(--ring)}
-    .about-grid{grid-template-columns: 1fr 1fr}
-    .badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; padding:6px 10px; border-radius:999px; background:rgba(33,201,255,.15); border:1px solid rgba(33,201,255,.35)}
-
-    /* ============== Journey (Edu/Exp) ============== */
-    .journey{grid-template-columns:1fr 1fr}
-    .timeline{display:grid; gap:14px}
-    .timeline .step{position:relative}
-    .timeline .step::before{content:""; position:absolute; left:10px; top:0; bottom:-14px; width:2px; background:linear-gradient(var(--accent),transparent)}
-    .timeline .dot{width:22px; height:22px; border-radius:50%; background:var(--bg); border:2px solid var(--accent); display:grid; place-items:center; color:var(--accent); font-size:12px; box-shadow:0 0 0 4px rgba(33,201,255,.12)}
-    .timeline .content{margin-left:40px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); padding:14px; border-radius:12px}
-    .subtitle{color:var(--muted); font-weight:600; letter-spacing:.2px}
-
-    /* ============== Skills ============== */
-    .skills{grid-template-columns:1fr 1fr}
-    .bar{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.08)}
-    .bar > span{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width 1.2s ease}
-    .skill{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px; margin:10px 0}
-
-    /* ============== Contact ============== */
-    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
-    form .full{grid-column:1 / -1}
-    input, textarea{background:var(--bg); color:var(--text); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 14px; font:inherit}
-    textarea{min-height:130px; resize:vertical}
-
-    footer{padding:40px 16px; color:var(--muted); text-align:center}
-
-    /* ============== Responsive ============== */
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr; min-height:unset}
-      .portrait{justify-self:start}
-      .about-grid,.journey,.skills{grid-template-columns:1fr}
-      .links{display:none}
-      .menu{display:block}
+    nav a {
+      margin-right:20px;
+      text-decoration:none;
+      font-weight:bold;
+      transition:0.3s;
     }
+    nav a:nth-child(1) { color: #1e90ff; }
+    nav a:nth-child(2) { color: #ff8c00; }
+    nav a:nth-child(3) { color: #ff0000; }
+    nav a:nth-child(4) { color: #32cd32; }
+    nav a:hover, nav a.active {
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff0;
+      transform: scale(1.1);
+    }
+    #toggleMode {
+      float:right;
+      background:none;
+      border:none;
+      color:#fff;
+      font-size:18px;
+      cursor:pointer;
+    }
+    body.light-mode #toggleMode { color:#222; }
+
+    /* Sections */
+    section {
+      padding:120px 20px;
+      min-height:100vh;
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+
+    /* Neon Titles */
+    #home .neon-title {
+      font-size:3rem;
+      text-align:center;
+      font-weight:bold;
+      animation: neonColorChange 5s infinite;
+    }
+    @keyframes neonColorChange {
+      0%,20% { color: #1e90ff; text-shadow: 0 0 10px #1e90ff, 0 0 20px #00f; }
+      25% { color: #00ffff; text-shadow: 0 0 10px #00ffff, 0 0 20px #0ff; }
+      50% { color: #ff1493; text-shadow: 0 0 10px #ff1493, 0 0 20px #ff69b4; }
+      75% { color: #ff4500; text-shadow: 0 0 10px #ff4500, 0 0 20px #ff6347; }
+      100% { color: #1e90ff; text-shadow: 0 0 10px #1e90ff, 0 0 20px #00f; }
+    }
+    #about .neon-title { color: #ff8c00; text-shadow: 0 0 10px #ff8c00, 0 0 20px #ffa500; }
+    #projects .neon-title, #contact .neon-title { color: #ff0000; text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4500; }
+
+    /* Section-specific Text Colors */
+    #home p.custom-purple { color: #9b59b6; font-weight:bold; text-align:center; }
+    #about p, #about .skill-bar { color: #ff8c00; }
+    #projects .project h2 { color: #ff0000; }
+    #projects .project p { color: #ff6347; }
+    #contact form input, #contact form textarea { color: #ff1493; border-color: #ff69b4; }
+    #contact button { background: linear-gradient(90deg, #ff69b4, #ff1493); color: #fff; }
+
+    /* Projects */
+    .project {
+      background: linear-gradient(135deg, #111, #222);
+      padding:20px; margin:15px 0;
+      border-radius:12px;
+      transition:0.3s;
+      box-shadow: 0 0 5px #0ff;
+    }
+    .project:hover {
+      box-shadow: 0 0 20px #0ff, 0 0 40px #ff0;
+    }
+
+    /* Forms */
+    form input, form textarea {
+      width:100%; padding:12px; margin:8px 0;
+      background: #111; border:1px solid #0ff; border-radius:6px;
+      transition:0.3s;
+    }
+    form input:focus, form textarea:focus {
+      border-color: #ff0;
+      box-shadow: 0 0 10px #0ff, 0 0 20px #ff0;
+      outline: none;
+    }
+    button {
+      padding:12px 25px; border:none;
+      border-radius:8px; cursor:pointer;
+      font-weight:bold; transition:0.3s;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #0ff, 0 0 30px #ff0;
+    }
+
+    /* Skills Bars */
+    .skill-bar {margin:10px 0; background:#111; border-radius:8px; overflow:hidden;}
+    .skill-bar-inner {height:20px; width:0; border-radius:8px; transition:width 1.5s;}
+    .skill-html { background: #1e90ff; }
+    .skill-js { background: #ffff00; }
+    .skill-react { background: #32cd32; }
+
+    /* Footer */
+    footer {
+      text-align:center;
+      padding:20px;
+      background:#111;
+      border-top:2px solid #0ff;
+    }
+    footer a {color:#0ff; margin:0 10px; transition:0.3s;}
+    footer a:hover {color:#ff0;}
   </style>
 </head>
 <body>
-  <!-- Header / Nav -->
-  <header>
-    <nav class="nav">
-      <div class="brand">Nebula<span>.</span></div>
-      <div class="spacer"></div>
-      <div class="links" id="navlinks">
-        <a href="#acasa" class="active">Acasă</a>
-        <a href="#despre">Despre</a>
-        <a href="#drum">Parcurs</a>
-        <a href="#abilitati">Abilități</a>
-        <a href="#contact">Contact</a>
-      </div>
-      <div class="actions">
-        <button class="icon-btn" id="theme" title="Schimbă tema"><i class="fa-solid fa-sun"></i></button>
-        <button class="icon-btn menu" id="openMenu" title="Meniu"><i class="fa-solid fa-bars"></i></button>
-      </div>
-    </nav>
-  </header>
 
-  <main>
-    <!-- Hero -->
-    <section id="acasa" class="container grid hero">
-      <div>
-        <h1 class="headline">Salut, sunt <span class="role">Frontend Developer</span> pregătit să-ți transform ideile în interfețe rapide și elegante.</h1>
-        <p class="lead">Construiesc site‑uri și aplicații cu accent pe performanță, accesibilitate și micro‑animații care fac experiența memorabilă.</p>
-        <div class="cta">
-          <a class="btn primary" href="#contact"><i class="fa-solid fa-paper-plane"></i>&nbsp;Hai să vorbim</a>
-          <a class="btn" href="#abilitati"><i class="fa-solid fa-gauge-high"></i>&nbsp;Vezi skill‑urile</a>
-        </div>
-        <div class="socials">
-          <a class="icon-btn" href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-          <a class="icon-btn" href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-          <a class="icon-btn" href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-        </div>
-      </div>
-      <div class="portrait">
-        <span class="glow" aria-hidden="true"></span>
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1080&auto=format&fit=crop" alt="Portret stilizat" />
-      </div>
-    </section>
+<header>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About Me</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <button id="toggleMode">🌞/🌙</button>
+  </nav>
+</header>
 
-    <!-- About -->
-    <section id="despre" class="container about-grid grid">
-      <div class="card">
-        <span class="badge"><i class="fa-solid fa-code"></i> Despre mine</span>
-        <h2>Designer de interfețe & dezvoltator web</h2>
-        <p class="subtitle">Îmbin estetică, UX și inginerie front‑end.</p>
-        <p>
-          Îmi place să creez produse web fluide și accesibile. Scriu cod curat, modular și iubesc să mă joc cu detalii vizuale: umbre moi,
-          gradienturi subtile și micro‑interacțiuni care dau viață paginii.
-        </p>
-        <div class="cta">
-          <a class="btn" href="#drum"><i class="fa-solid fa-road"></i>&nbsp;Parcursul meu</a>
-        </div>
-      </div>
-      <div class="card">
-        <span class="badge" style="background:rgba(43,213,118,.14); border-color:rgba(43,213,118,.4)"><i class="fa-solid fa-rocket"></i> Ce ofer</span>
-        <ul style="margin:14px 0 0 0; padding-left:18px; line-height:1.9">
-          <li>Pagini rapide cu <strong>CLS</strong> mic și <strong>Lighthouse</strong> verde</li>
-          <li>Design system pe componente reutilizabile</li>
-          <li>Optimizare SEO on‑page & accesibilitate</li>
-          <li>Integrare API și formulare cu validare</li>
-        </ul>
-      </div>
-    </section>
+<section id="home" data-aos="fade-up">
+  <h1 class="neon-title">Welcome to Alxxxx's Projects</h1>
+  <p class="custom-purple">ᴇxᴘʟᴏʀᴇ ᴍʏ ᴘʀᴏᴊᴇᴄᴛꜱ ᴀɴᴅ ꜱᴋɪʟʟꜱ ʙʏ ꜱᴄʀᴏʟʟɪɴɢ ᴅᴏᴡɴ!</p>
+</section>
 
-    <!-- Journey -->
-    <section id="drum" class="container grid journey">
-      <div class="card">
-        <h2>Cale academică</h2>
-        <div class="timeline">
-          <div class="step">
-            <div class="dot"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="content">
-              <strong>Master UX/UI</strong> · 2022‑2023
-              <div class="subtitle">Universitatea Designului Digital</div>
-              <p>Proiecte de cercetare cu testare utilizatori, prototipare și design sistem.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="dot"><i class="fa-solid fa-laptop-code"></i></div>
-            <div class="content">
-              <strong>Licență Informatică</strong> · 2019‑2022
-              <div class="subtitle">Facultatea de Matematică și Informatică</div>
-              <p>Algoritmi, structuri de date, dezvoltare web modernă.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Experiență</h2>
-        <div class="timeline">
-          <div class="step">
-            <div class="dot"><i class="fa-solid fa-briefcase"></i></div>
-            <div class="content">
-              <strong>Frontend Engineer · NovaLabs</strong> · 2023‑prezent
-              <div class="subtitle">React, TypeScript, design system, testare E2E</div>
-              <p>Am livrat dashboard‑uri cu performanță ridicată și theming dinamic.</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="dot"><i class="fa-solid fa-briefcase"></i></div>
-            <div class="content">
-              <strong>Web Developer · Studio Pixel</strong> · 2021‑2023
-              <div class="subtitle">Site‑uri promo și e‑commerce</div>
-              <p>Landing‑uri cu conversii mari, integrare CMS și optimizare SEO.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<section id="about" data-aos="fade-up">
+  <h1 class="neon-title">About Me</h1>
+  <p>I'm a passionate developer working with web and game projects. I love creating interactive experiences and dynamic designs.</p>
+  <div class="skill-bar" data-aos="fade-right"><div class="skill-bar-inner skill-html" data-width="90%"></div> HTML/CSS</div>
+  <div class="skill-bar" data-aos="fade-right" data-aos-delay="100"><div class="skill-bar-inner skill-js" data-width="80%"></div> JavaScript</div>
+  <div class="skill-bar" data-aos="fade-right" data-aos-delay="200"><div class="skill-bar-inner skill-react" data-width="70%"></div> React</div>
+</section>
 
-    <!-- Skills -->
-    <section id="abilitati" class="container grid skills">
-      <div class="card">
-        <h2>Abilități de cod</h2>
-        <div class="skill"><span>HTML</span><div class="bar"><span data-value="92%"></span></div><span>92%</span></div>
-        <div class="skill"><span>CSS</span><div class="bar"><span data-value="88%"></span></div><span>88%</span></div>
-        <div class="skill"><span>JavaScript</span><div class="bar"><span data-value="85%"></span></div><span>85%</span></div>
-        <div class="skill"><span>TypeScript</span><div class="bar"><span data-value="78%"></span></div><span>78%</span></div>
-      </div>
-      <div class="card">
-        <h2>Abilități profesionale</h2>
-        <div class="skill"><span>Web Design</span><div class="bar"><span data-value="90%"></span></div><span>90%</span></div>
-        <div class="skill"><span>UX/UI</span><div class="bar"><span data-value="84%"></span></div><span>84%</span></div>
-        <div class="skill"><span>SEO</span><div class="bar"><span data-value="72%"></span></div><span>72%</span></div>
-        <div class="skill"><span>Performance</span><div class="bar"><span data-value="80%"></span></div><span>80%</span></div>
-      </div>
-    </section>
+<section id="projects" data-aos="fade-up">
+  <h1 class="neon-title">Projects</h1>
+  <div class="project" data-aos="zoom-in"><h2>Project 1</h2><p>Web project description</p></div>
+  <div class="project" data-aos="zoom-in" data-aos-delay="100"><h2>Project 2</h2><p>Game project description</p></div>
+</section>
 
-    <!-- Contact -->
-    <section id="contact" class="container">
-      <div class="card">
-        <h2>Contactează‑mă</h2>
-        <p class="subtitle">Completează formularul și îți răspund cât pot de repede.</p>
-        <form onsubmit="event.preventDefault(); alert('Mulțumesc! Formularul e doar demo.');">
-          <input type="text" placeholder="Nume complet" required>
-          <input type="email" placeholder="Email" required>
-          <input type="text" placeholder="Telefon">
-          <input type="text" placeholder="Subiect">
-          <textarea class="full" placeholder="Mesajul tău" required></textarea>
-          <button class="btn primary full" type="submit"><i class="fa-solid fa-paper-plane"></i>&nbsp; Trimite</button>
-        </form>
-      </div>
-    </section>
-  </main>
+<section id="contact" data-aos="fade-up">
+  <h1 class="neon-title">Contact</h1>
+  <form>
+    <input type="text" placeholder="Your Name">
+    <input type="email" placeholder="Your Email">
+    <textarea placeholder="Message"></textarea>
+    <button type="submit">Send</button>
+  </form>
+</section>
 
-  <footer>
-    © <span id="year"></span> Nebula. Toate drepturile rezervate.
-  </footer>
+<footer>
+  <p>ᴀɴʏ ɴᴇᴇᴅ ꜰᴏʀ ʜᴇʟᴘ ꜰʀᴏᴍ ᴍʏ ꜱɪᴅᴇ 
+  <a href="https://discord.gg/8Kdbt8ut">Join my Discord</a></p>
+  <a href="#"><i class="fab fa-github"></i></a>
+  <a href="#"><i class="fab fa-linkedin"></i></a>
+  <a href="#"><i class="fab fa-twitter"></i></a>
+</footer>
 
-  <script>
-    // Active link on scroll + simple intersection observer for skill bars
-    const links = [...document.querySelectorAll('.links a')];
-    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
-    const yearEl = document.getElementById('year'); yearEl.textContent = new Date().getFullYear();
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+  AOS.init();
 
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          const id = '#' + e.target.id;
-          links.forEach(l => l.classList.toggle('active', l.getAttribute('href')===id));
-          // animate bars inside visible section
-          e.target.querySelectorAll('.bar > span').forEach(el=>{
-            const v = el.getAttribute('data-value');
-            if(v && !el.style.width) requestAnimationFrame(()=> el.style.width = v);
-          });
-        }
-      });
-    }, { rootMargin:'-40% 0px -55% 0px' });
-    sections.forEach(s => s && io.observe(s));
+  // 🌙/🌞 Dark/Light Mode Toggle
+  document.getElementById("toggleMode").addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+  });
 
-    // Theme toggle
-    const themeBtn = document.getElementById('theme');
-    const applyTheme = (t)=>{
-      document.documentElement.setAttribute('data-theme', t);
-      themeBtn.innerHTML = t==='light' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
-      localStorage.setItem('theme', t);
-    }
-    const saved = localStorage.getItem('theme');
-    if(saved){ applyTheme(saved); }
-    themeBtn.addEventListener('click', ()=>{
-      const current = document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light';
-      applyTheme(current);
+  // 🔥 Navbar active link highlight
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute("id");
+      }
     });
-
-    // Mobile menu (simple)
-    const openMenu = document.getElementById('openMenu');
-    const navlinks = document.getElementById('navlinks');
-    openMenu?.addEventListener('click', ()=>{
-      const visible = getComputedStyle(navlinks).display !== 'none';
-      navlinks.style.display = visible ? 'none' : 'block';
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === "#" + current) {
+        link.classList.add("active");
+      }
     });
-  </script>
+  });
+
+  // 🎬 Skill bars animation on scroll
+  const skills = document.querySelectorAll(".skill-bar-inner");
+  function animateSkills() {
+    skills.forEach(bar => {
+      const rect = bar.getBoundingClientRect();
+      if (rect.top < window.innerHeight && bar.style.width === "0px") {
+        bar.style.width = bar.getAttribute("data-width");
+      }
+    });
+  }
+  window.addEventListener("scroll", animateSkills);
+  window.addEventListener("load", animateSkills);
+
+  // 🪐 Small hover animation for projects
+  document.querySelectorAll(".project").forEach(card => {
+    card.addEventListener("mousemove", e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.transform = `rotateY(${(x - rect.width/2)/20}deg) rotateX(${-(y - rect.height/2)/20}deg)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "rotateY(0) rotateX(0)";
+    });
+  });
+</script>
 </body>
 </html>
+
