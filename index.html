@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nebula • Portofoliu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root{
+      --bg:#0c1320;         /* deep space */
+      --bg-soft:#0f1a2e;    /* cards */
+      --text:#dbe7ff;       /* primary text */
+      --muted:#8aa2c7;      /* secondary */
+      --accent:#21c9ff;     /* cyan */
+      --accent-2:#7a5cff;   /* violet */
+      --ok:#2bd576;         /* green */
+      --ring: 0 0 0 2px rgb(33 201 255 / .15), 0 10px 30px rgb(122 92 255 / .25);
+    }
+    [data-theme="light"]{
+      --bg:#f6f9ff;
+      --bg-soft:#ffffff;
+      --text:#0c1320;
+      --muted:#4e607a;
+      --accent:#0b8bd6;
+      --accent-2:#6a4fff;
+      --ok:#0a9b55;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(122,92,255,.18), transparent 60%),
+        radial-gradient(900px 500px at -10% 20%, rgba(33,201,255,.18), transparent 60%),
+        var(--bg);
+      scroll-behavior:smooth;
+    }
+
+    /* ============== Header ============== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(180deg, rgba(12,19,32,.8), rgba(12,19,32,.35));
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .nav{max-width:1100px; margin:auto; display:flex; align-items:center; gap:20px; padding:14px 16px}
+    .brand{font-weight:800; letter-spacing:.5px; font-size:1.15rem}
+    .brand span{background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .spacer{flex:1}
+    .links a{color:var(--muted); text-decoration:none; margin:0 10px; font-weight:600; position:relative}
+    .links a:hover,.links a.active{color:var(--text)}
+    .links a.active::after{content:""; position:absolute; left:0; right:0; bottom:-8px; height:2px; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:2px}
+    .actions{display:flex; align-items:center; gap:10px}
+    .btn, button.btn{appearance:none; border:none; border-radius:12px; padding:10px 14px; font-weight:700; cursor:pointer; color:var(--text); background:linear-gradient(90deg, rgba(33,201,255,.15), rgba(122,92,255,.15)); box-shadow:var(--ring)}
+    .btn:hover{transform:translateY(-1px)}
+    .icon-btn{width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); color:var(--text)}
+    .menu{display:none}
+
+    /* ============== Layout helpers ============== */
+    .container{max-width:1100px; margin:auto; padding:64px 16px}
+    section{scroll-margin-top:90px}
+    .grid{display:grid; gap:28px}
+
+    /* ============== Hero ============== */
+    .hero{min-height:72vh; align-items:center; grid-template-columns: 1.15fr .85fr}
+    .headline{font-size:clamp(28px, 4vw, 44px); line-height:1.1; font-weight:800}
+    .headline .role{display:block; background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .lead{color:var(--muted); max-width:56ch}
+    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+    .cta .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; box-shadow:0 14px 34px rgba(33,201,255,.25)}
+    .socials{display:flex; gap:12px; margin-top:18px}
+
+    .portrait{justify-self:end; position:relative}
+    .glow{
+      position:absolute; inset:-12px; border-radius:24px;
+      background: radial-gradient(600px 300px at 20% 10%, rgba(33,201,255,.25), transparent 60%),
+                  radial-gradient(500px 300px at 80% 90%, rgba(122,92,255,.25), transparent 60%);
+      filter:blur(24px); z-index:-1
+    }
+    .portrait img{width:min(420px, 88vw); border-radius:24px; display:block; object-fit:cover; aspect-ratio:1/1.2; border:1px solid rgba(255,255,255,.08)}
+
+    /* ============== About ============== */
+    .card{background:var(--bg-soft); border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:22px; box-shadow:var(--ring)}
+    .about-grid{grid-template-columns: 1fr 1fr}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-weight:700; padding:6px 10px; border-radius:999px; background:rgba(33,201,255,.15); border:1px solid rgba(33,201,255,.35)}
+
+    /* ============== Journey (Edu/Exp) ============== */
+    .journey{grid-template-columns:1fr 1fr}
+    .timeline{display:grid; gap:14px}
+    .timeline .step{position:relative}
+    .timeline .step::before{content:""; position:absolute; left:10px; top:0; bottom:-14px; width:2px; background:linear-gradient(var(--accent),transparent)}
+    .timeline .dot{width:22px; height:22px; border-radius:50%; background:var(--bg); border:2px solid var(--accent); display:grid; place-items:center; color:var(--accent); font-size:12px; box-shadow:0 0 0 4px rgba(33,201,255,.12)}
+    .timeline .content{margin-left:40px; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08); padding:14px; border-radius:12px}
+    .subtitle{color:var(--muted); font-weight:600; letter-spacing:.2px}
+
+    /* ============== Skills ============== */
+    .skills{grid-template-columns:1fr 1fr}
+    .bar{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.08)}
+    .bar > span{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--accent),var(--accent-2)); transition:width 1.2s ease}
+    .skill{display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px; margin:10px 0}
+
+    /* ============== Contact ============== */
+    form{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    form .full{grid-column:1 / -1}
+    input, textarea{background:var(--bg); color:var(--text); border:1px solid rgba(255,255,255,.12); border-radius:12px; padding:12px 14px; font:inherit}
+    textarea{min-height:130px; resize:vertical}
+
+    footer{padding:40px 16px; color:var(--muted); text-align:center}
+
+    /* ============== Responsive ============== */
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; min-height:unset}
+      .portrait{justify-self:start}
+      .about-grid,.journey,.skills{grid-template-columns:1fr}
+      .links{display:none}
+      .menu{display:block}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header>
+    <nav class="nav">
+      <div class="brand">Nebula<span>.</span></div>
+      <div class="spacer"></div>
+      <div class="links" id="navlinks">
+        <a href="#acasa" class="active">Acasă</a>
+        <a href="#despre">Despre</a>
+        <a href="#drum">Parcurs</a>
+        <a href="#abilitati">Abilități</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" id="theme" title="Schimbă tema"><i class="fa-solid fa-sun"></i></button>
+        <button class="icon-btn menu" id="openMenu" title="Meniu"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="acasa" class="container grid hero">
+      <div>
+        <h1 class="headline">Salut, sunt <span class="role">Frontend Developer</span> pregătit să-ți transform ideile în interfețe rapide și elegante.</h1>
+        <p class="lead">Construiesc site‑uri și aplicații cu accent pe performanță, accesibilitate și micro‑animații care fac experiența memorabilă.</p>
+        <div class="cta">
+          <a class="btn primary" href="#contact"><i class="fa-solid fa-paper-plane"></i>&nbsp;Hai să vorbim</a>
+          <a class="btn" href="#abilitati"><i class="fa-solid fa-gauge-high"></i>&nbsp;Vezi skill‑urile</a>
+        </div>
+        <div class="socials">
+          <a class="icon-btn" href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          <a class="icon-btn" href="#" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+          <a class="icon-btn" href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="portrait">
+        <span class="glow" aria-hidden="true"></span>
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1080&auto=format&fit=crop" alt="Portret stilizat" />
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="despre" class="container about-grid grid">
+      <div class="card">
+        <span class="badge"><i class="fa-solid fa-code"></i> Despre mine</span>
+        <h2>Designer de interfețe & dezvoltator web</h2>
+        <p class="subtitle">Îmbin estetică, UX și inginerie front‑end.</p>
+        <p>
+          Îmi place să creez produse web fluide și accesibile. Scriu cod curat, modular și iubesc să mă joc cu detalii vizuale: umbre moi,
+          gradienturi subtile și micro‑interacțiuni care dau viață paginii.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#drum"><i class="fa-solid fa-road"></i>&nbsp;Parcursul meu</a>
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge" style="background:rgba(43,213,118,.14); border-color:rgba(43,213,118,.4)"><i class="fa-solid fa-rocket"></i> Ce ofer</span>
+        <ul style="margin:14px 0 0 0; padding-left:18px; line-height:1.9">
+          <li>Pagini rapide cu <strong>CLS</strong> mic și <strong>Lighthouse</strong> verde</li>
+          <li>Design system pe componente reutilizabile</li>
+          <li>Optimizare SEO on‑page & accesibilitate</li>
+          <li>Integrare API și formulare cu validare</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Journey -->
+    <section id="drum" class="container grid journey">
+      <div class="card">
+        <h2>Cale academică</h2>
+        <div class="timeline">
+          <div class="step">
+            <div class="dot"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="content">
+              <strong>Master UX/UI</strong> · 2022‑2023
+              <div class="subtitle">Universitatea Designului Digital</div>
+              <p>Proiecte de cercetare cu testare utilizatori, prototipare și design sistem.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot"><i class="fa-solid fa-laptop-code"></i></div>
+            <div class="content">
+              <strong>Licență Informatică</strong> · 2019‑2022
+              <div class="subtitle">Facultatea de Matematică și Informatică</div>
+              <p>Algoritmi, structuri de date, dezvoltare web modernă.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Experiență</h2>
+        <div class="timeline">
+          <div class="step">
+            <div class="dot"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="content">
+              <strong>Frontend Engineer · NovaLabs</strong> · 2023‑prezent
+              <div class="subtitle">React, TypeScript, design system, testare E2E</div>
+              <p>Am livrat dashboard‑uri cu performanță ridicată și theming dinamic.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="dot"><i class="fa-solid fa-briefcase"></i></div>
+            <div class="content">
+              <strong>Web Developer · Studio Pixel</strong> · 2021‑2023
+              <div class="subtitle">Site‑uri promo și e‑commerce</div>
+              <p>Landing‑uri cu conversii mari, integrare CMS și optimizare SEO.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="abilitati" class="container grid skills">
+      <div class="card">
+        <h2>Abilități de cod</h2>
+        <div class="skill"><span>HTML</span><div class="bar"><span data-value="92%"></span></div><span>92%</span></div>
+        <div class="skill"><span>CSS</span><div class="bar"><span data-value="88%"></span></div><span>88%</span></div>
+        <div class="skill"><span>JavaScript</span><div class="bar"><span data-value="85%"></span></div><span>85%</span></div>
+        <div class="skill"><span>TypeScript</span><div class="bar"><span data-value="78%"></span></div><span>78%</span></div>
+      </div>
+      <div class="card">
+        <h2>Abilități profesionale</h2>
+        <div class="skill"><span>Web Design</span><div class="bar"><span data-value="90%"></span></div><span>90%</span></div>
+        <div class="skill"><span>UX/UI</span><div class="bar"><span data-value="84%"></span></div><span>84%</span></div>
+        <div class="skill"><span>SEO</span><div class="bar"><span data-value="72%"></span></div><span>72%</span></div>
+        <div class="skill"><span>Performance</span><div class="bar"><span data-value="80%"></span></div><span>80%</span></div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+      <div class="card">
+        <h2>Contactează‑mă</h2>
+        <p class="subtitle">Completează formularul și îți răspund cât pot de repede.</p>
+        <form onsubmit="event.preventDefault(); alert('Mulțumesc! Formularul e doar demo.');">
+          <input type="text" placeholder="Nume complet" required>
+          <input type="email" placeholder="Email" required>
+          <input type="text" placeholder="Telefon">
+          <input type="text" placeholder="Subiect">
+          <textarea class="full" placeholder="Mesajul tău" required></textarea>
+          <button class="btn primary full" type="submit"><i class="fa-solid fa-paper-plane"></i>&nbsp; Trimite</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Nebula. Toate drepturile rezervate.
+  </footer>
+
+  <script>
+    // Active link on scroll + simple intersection observer for skill bars
+    const links = [...document.querySelectorAll('.links a')];
+    const sections = links.map(a => document.querySelector(a.getAttribute('href')));
+    const yearEl = document.getElementById('year'); yearEl.textContent = new Date().getFullYear();
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const id = '#' + e.target.id;
+          links.forEach(l => l.classList.toggle('active', l.getAttribute('href')===id));
+          // animate bars inside visible section
+          e.target.querySelectorAll('.bar > span').forEach(el=>{
+            const v = el.getAttribute('data-value');
+            if(v && !el.style.width) requestAnimationFrame(()=> el.style.width = v);
+          });
+        }
+      });
+    }, { rootMargin:'-40% 0px -55% 0px' });
+    sections.forEach(s => s && io.observe(s));
+
+    // Theme toggle
+    const themeBtn = document.getElementById('theme');
+    const applyTheme = (t)=>{
+      document.documentElement.setAttribute('data-theme', t);
+      themeBtn.innerHTML = t==='light' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+      localStorage.setItem('theme', t);
+    }
+    const saved = localStorage.getItem('theme');
+    if(saved){ applyTheme(saved); }
+    themeBtn.addEventListener('click', ()=>{
+      const current = document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+      applyTheme(current);
+    });
+
+    // Mobile menu (simple)
+    const openMenu = document.getElementById('openMenu');
+    const navlinks = document.getElementById('navlinks');
+    openMenu?.addEventListener('click', ()=>{
+      const visible = getComputedStyle(navlinks).display !== 'none';
+      navlinks.style.display = visible ? 'none' : 'block';
+    });
+  </script>
+</body>
+</html>
